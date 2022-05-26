@@ -36,6 +36,7 @@ type Validator struct {
 type ClientInfo struct {
 	ID        string   `json:",omitempty"`
 	AppName   string   `json:",omitempty"`
+	AppUserID string   `json:",omitempty"`
 	IPAddr    string   `json:",omitempty"`
 	Scopes    []string `json:",omitempty"`
 	ScopesCSV string   `json:",omitempty"`
@@ -100,6 +101,9 @@ func (v *Validator) ValidateToken(token string, remoteAddr string) (*ClientInfo,
 	}
 	if val, ok := tk.Get("app"); ok {
 		ci.AppName = val.(string)
+	}
+	if val, ok := tk.Get("appuid"); ok {
+		ci.AppUserID = val.(string)
 	}
 	if val, ok := tk.Get("scope"); ok {
 		ci.ScopesCSV = val.(string)
